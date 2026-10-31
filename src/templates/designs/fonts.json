@@ -1,0 +1,606 @@
+{
+ "$comment": "Fonts each template theme loads (from @fontsource; self-hosted). Keys are template keys. Run tools/build-design-assets.mjs after changing.",
+ "bold-modern": [
+  {
+   "family": "DM Serif Display",
+   "normal": [
+    400
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Manrope",
+   "normal": [
+    400,
+    500,
+    600,
+    700,
+    800
+   ]
+  }
+ ],
+ "dark-luxury": [
+  {
+   "family": "Pinyon Script",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Cinzel",
+   "normal": [
+    400,
+    500,
+    600
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    500,
+    600
+   ],
+   "italic": [
+    500
+   ]
+  }
+ ],
+ "light-minimal": [
+  {
+   "family": "Italiana",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    300,
+    400
+   ],
+   "italic": [
+    300,
+    400
+   ]
+  },
+  {
+   "family": "Jost",
+   "normal": [
+    300,
+    400,
+    500
+   ]
+  }
+ ],
+ "sage-garden": [
+  {
+   "family": "Great Vibes",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Parisienne",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    400,
+    500,
+    600
+   ],
+   "italic": [
+    400,
+    500
+   ]
+  },
+  {
+   "family": "Playfair Display",
+   "normal": [
+    400,
+    500,
+    600
+   ]
+  },
+  {
+   "family": "Montserrat",
+   "normal": [
+    500,
+    600
+   ]
+  }
+ ],
+ "soft-pastel": [
+  {
+   "family": "Italianno",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "EB Garamond",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant Infant",
+   "normal": [
+    500,
+    600
+   ]
+  },
+  {
+   "family": "Quicksand",
+   "normal": [
+    500,
+    600,
+    700
+   ]
+  }
+ ],
+ "warm-earthy": [
+  {
+   "family": "Alex Brush",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Fraunces",
+   "normal": [
+    400,
+    500,
+    600
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Lora",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Karla",
+   "normal": [
+    600,
+    700
+   ]
+  }
+ ],
+ "marigold-ink": [
+  {
+   "family": "Instrument Serif",
+   "normal": [
+    400
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "DM Sans",
+   "normal": [
+    400,
+    500,
+    700
+   ]
+  },
+  {
+   "family": "DM Mono",
+   "normal": [
+    400,
+    500
+   ]
+  }
+ ],
+ "midnight-mehfil": [
+  {
+   "family": "Cormorant",
+   "normal": [
+    400,
+    500,
+    600
+   ],
+   "italic": [
+    400,
+    500
+   ]
+  },
+  {
+   "family": "Outfit",
+   "normal": [
+    300,
+    400,
+    500,
+    700
+   ]
+  },
+  {
+   "family": "Spline Sans Mono",
+   "normal": [
+    400,
+    500
+   ]
+  }
+ ],
+ "monsoon-mono": [
+  {
+   "family": "Newsreader",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Inter Tight",
+   "normal": [
+    400,
+    500,
+    700
+   ]
+  },
+  {
+   "family": "JetBrains Mono",
+   "normal": [
+    400,
+    500
+   ]
+  }
+ ],
+ "pink-city": [
+  {
+   "family": "Yeseva One",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Work Sans",
+   "normal": [
+    400,
+    500,
+    700
+   ]
+  },
+  {
+   "family": "Azeret Mono",
+   "normal": [
+    400,
+    500
+   ]
+  }
+ ],
+ "pista-rose": [
+  {
+   "family": "Gilda Display",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Nunito Sans",
+   "normal": [
+    400,
+    600,
+    700
+   ]
+  },
+  {
+   "family": "Courier Prime",
+   "normal": [
+    400
+   ]
+  }
+ ],
+ "rani-gold": [
+  {
+   "family": "Bodoni Moda",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Figtree",
+   "normal": [
+    400,
+    500,
+    700
+   ]
+  },
+  {
+   "family": "IBM Plex Mono",
+   "normal": [
+    400,
+    500
+   ]
+  }
+ ],
+ "black-tie": [
+  {
+   "family": "Marcellus",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Marcellus SC",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Josefin Sans",
+   "normal": [
+    300,
+    400,
+    600
+   ]
+  }
+ ],
+ "english-garden": [
+  {
+   "family": "Libre Caslon Display",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Libre Caslon Text",
+   "normal": [
+    400,
+    700
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Lato",
+   "normal": [
+    400,
+    700
+   ]
+  }
+ ],
+ "heirloom": [
+  {
+   "family": "IM Fell English",
+   "normal": [
+    400
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "IM Fell English SC",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Crimson Pro",
+   "normal": [
+    400,
+    500,
+    600
+   ],
+   "italic": [
+    400
+   ]
+  }
+ ],
+ "ivory-letterpress": [
+  {
+   "family": "Monsieur La Doulaise",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant SC",
+   "normal": [
+    400,
+    500,
+    600
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    400,
+    500,
+    600
+   ],
+   "italic": [
+    400,
+    500
+   ]
+  }
+ ],
+ "riviera": [
+  {
+   "family": "Prata",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Raleway",
+   "normal": [
+    400,
+    500,
+    600,
+    700
+   ],
+   "italic": [
+    400
+   ]
+  }
+ ],
+ "noor": [
+  {
+   "family": "Rozha One",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Instrument Serif",
+   "normal": [
+    400
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Hanken Grotesk",
+   "normal": [
+    300,
+    400,
+    500,
+    600
+   ]
+  }
+ ],
+ "royal-gold": [
+  {
+   "family": "Bodoni Moda",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400,
+    500
+   ]
+  },
+  {
+   "family": "Jost",
+   "normal": [
+    300,
+    400,
+    500,
+    600
+   ]
+  }
+ ],
+ "emerald-maharani": [
+  {
+   "family": "Gloock",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Playfair Display",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Outfit",
+   "normal": [
+    300,
+    400,
+    500,
+    600
+   ]
+  }
+ ],
+ "rose-dusk": [
+  {
+   "family": "Italiana",
+   "normal": [
+    400
+   ]
+  },
+  {
+   "family": "Cormorant",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400,
+    500
+   ]
+  },
+  {
+   "family": "Mulish",
+   "normal": [
+    300,
+    400,
+    500,
+    600
+   ]
+  }
+ ],
+ "midnight-sapphire": [
+  {
+   "family": "Cinzel",
+   "normal": [
+    400,
+    500
+   ]
+  },
+  {
+   "family": "Cormorant Garamond",
+   "normal": [
+    400,
+    500
+   ],
+   "italic": [
+    400
+   ]
+  },
+  {
+   "family": "Manrope",
+   "normal": [
+    300,
+    400,
+    500,
+    600
+   ]
+  }
+ ]
+}

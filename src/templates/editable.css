@@ -1,0 +1,42 @@
+/*
+ * Editor-only marks inside the live preview: the "Add …" / "… hidden" placeholders and the "✎ Section" chip.
+ * Designs reset buttons and spacing (e.g. `.olv-mi button { background: none }`), so these selectors are
+ * deliberately more specific (html body …) and not in a Tailwind layer.
+ */
+html body .olv-edit-ph {
+  display: inline-block; margin: 0; padding: 4px 12px; border: 1px dashed currentColor; border-radius: 6px;
+  font: italic 400 12px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none;
+  color: inherit; opacity: .6; background: transparent;
+}
+html body .olv-edit-chip-row {
+  position: sticky; top: 8px; z-index: 5; display: flex; justify-content: flex-end; height: 0; margin: 0; padding: 0;
+  pointer-events: none; overflow: visible;
+}
+/* Its own line in the page flow (above the section's content), so it never covers anything. */
+html body .olv-sample-row {
+  position: relative; z-index: 4; display: flex; justify-content: center; margin: 0 auto 18px; padding: 0 12px; width: 100%;
+}
+/* "Sample" tag: the section shows sample content until the couple adds their own (never on the live site). */
+html body .olv-sample-tag {
+  pointer-events: auto; display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; max-width: min(100%, 460px);
+  margin: 0; padding: 5px 12px; font: 500 12px/1.35 system-ui, -apple-system, "Segoe UI", sans-serif;
+  letter-spacing: 0; text-transform: none; text-align: left; color: #3d2a00; background: #ffe7a3;
+  border: 1px solid #e8b93c; border-radius: 999px; box-shadow: 0 2px 8px rgba(0, 0, 0, .18); cursor: default;
+}
+html body button.olv-sample-tag { cursor: pointer; }
+html body .olv-sample-tag b { font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+html body button.olv-sample-tag:focus-visible { outline: 2px solid #3d2a00; outline-offset: 2px; }
+html body .olv-edit-chip {
+  pointer-events: auto; display: inline-flex; align-items: center; gap: 4px; margin: 0; padding: 5px 12px;
+  font: 600 12px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none;
+  color: #fff; background: rgba(20, 16, 18, .72); border: 0; border-radius: 999px; box-shadow: 0 2px 8px rgba(0, 0, 0, .25); cursor: pointer;
+}
+html body .olv-edit-chip:hover { background: rgba(20, 16, 18, .92); }
+html body .olv-edit-chip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 4px rgba(20, 16, 18, .72); }
+
+/* "Change photo" on photos in the editor, so it's clear they can be tapped (absolute at its static position). */
+html body .olv-photo-chip {
+  position: absolute; z-index: 6; margin: 10px; padding: 5px 11px; pointer-events: none;
+  font: 600 12px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap;
+  color: #fff; background: rgba(20, 16, 18, .72); border-radius: 999px; box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+}

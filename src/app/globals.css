@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/*
+ * Olava design tokens (from "Olava Invites - App Design.html").
+ * Contrast note: the design's #c9669a pink is used for large/decorative text; buttons and small text use the
+ * darker #b0507f (≥4.5:1 on white) so they meet WCAG AA.
+ */
+@theme {
+  --color-pink: #c9669a;
+  --color-pink-dark: #b0507f;
+  --color-pink-deep: #8f3d66;
+  --color-blush: #fff4f7;
+  --color-tint: #f7e3ec;
+  --color-ink: #2b1f25;
+  --color-mute: #6f5b65;
+  --color-line: #f0d3e0;
+  --color-gold: #b98a2e;
+  --color-success: #287046;
+  --color-success-tint: #e7f4ec;
+  --color-danger: #b42335;
+  --color-danger-tint: #fdecee;
+  --color-warning: #8a5a00;
+  --color-warning-tint: #fff4dc;
+
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Playfair Display Variable", Georgia, serif;
+
+  --radius-card: 22px;
+  --radius-field: 14px;
+  --shadow-soft: 0 18px 40px -18px rgba(176, 80, 127, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-blush);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  /* Scrollbars: thin, soft pink thumb, no track. Wedding sites (design roots carry data-mode) use a tint of their
+     own text colour instead, so a template never shows the app's pink. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-pink) 45%, transparent) transparent;
+  }
+  html:has([data-mode="public"], [data-mode="preview"], [data-mode="sample"]),
+  [data-mode], [data-mode] * {
+    scrollbar-color: color-mix(in srgb, currentColor 28%, transparent) transparent;
+  }
+  /* Browsers without scrollbar-color (older Safari): same look through the WebKit pseudo-elements. */
+  @supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { border-radius: 999px; border: 2px solid transparent; background: color-mix(in srgb, var(--color-pink) 45%, transparent) padding-box; }
+    ::-webkit-scrollbar-thumb:hover { background-color: var(--color-pink); }
+  }
+  /* Browsers give fieldsets min-inline-size: min-content, so one long unbreakable child (a file name, a chip row)
+     widens the whole form past its container. */
+  fieldset {
+    min-width: 0;
+  }
+  /* Tailwind v4's reset gives buttons the default arrow; every clickable control shows the hand instead.
+     Base layer, so utilities such as cursor-grab (drag handles) still win. */
+  button, [role="button"], [role="radio"], [role="switch"], [role="tab"], [role="checkbox"], [role="menuitem"],
+  summary, select, ::file-selector-button,
+  input:is([type="checkbox"], [type="radio"], [type="file"], [type="color"], [type="range"], [type="submit"], [type="button"], [type="reset"]),
+  label:has(> input:is([type="checkbox"], [type="radio"], [type="file"])) {
+    cursor: pointer;
+  }
+  :disabled, :disabled::file-selector-button, [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-pink-dark);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Section loader (components/loading/OlavaLoader.tsx): fill bottom → top, hold, fade out, repeat.
+   The mask restarts at the bottom only while the fill is fully transparent, so there is no visible jump. */
+@keyframes olava-rise {
+  0% { transform: translateY(220px); }
+  58%, 100% { transform: translateY(0); }
+}
+@keyframes olava-fade {
+  0%, 74% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+@keyframes olava-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes olava-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.olava-loader-rise { animation: olava-rise 2600ms cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.olava-loader-fill { animation: olava-fade 2600ms ease-in-out infinite; }
+@layer base {
+  /* Same layer as the global reduced-motion rule (important declarations in a layer beat unlayered ones),
+     more specific so it wins: no movement, just the full mark with a gentle pulse. */
+  @media (prefers-reduced-motion: reduce) {
+    .olava-loader .olava-loader-rise { animation: none !important; transform: none; }
+    .olava-loader .olava-loader-fill { animation: olava-pulse 2400ms ease-in-out infinite !important; }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-pink-dark;
+  }
+  .wrap {
+    @apply mx-auto w-full max-w-[1160px] px-4 sm:px-5;
+  }
+}
+
+/* Sideways-scrolling rows (filter chips, wedding tabs on phones): no scrollbar; the far edge fades out to show
+   there is more. Swipe, shift+wheel or Tab still scroll them. */
+@utility scroll-row {
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+}
+
+/* Home page device showcase: the devices rise in one after another. */
+@keyframes showcase-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.showcase-device { animation: showcase-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .showcase-device { animation: none; } }
+
+/* Admin tables: on phones each row is a card, each cell shows its column name. */
+@media (max-width: 767px) {
+  .admin-table tbody tr { display: block; border-top: 1px solid var(--color-line); padding: 0.5rem 0; }
+  .admin-table tbody tr:first-child { border-top: 0; }
+  .admin-table tbody td { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.75rem; padding: 0.35rem 1rem; }
+  .admin-table tbody td::before { content: attr(data-label); font-size: 0.75rem; font-weight: 600; color: var(--color-mute); }
+  .admin-table tbody td[data-label=""]::before { content: none; }
+  .admin-table tbody td[data-label=""] { display: block; }
+}
+.admin-table tbody tr + tr { border-top: 1px solid var(--color-line); }

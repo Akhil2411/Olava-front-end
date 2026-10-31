@@ -1,0 +1,170 @@
+/*
+ * Guest RSVP form, shared by every design (src/templates/rsvp/RsvpForm.tsx).
+ *
+ * Designs theme it with --rsvp-* variables on their root element. Each falls back to the simple layout's
+ * --s-* theme colours. Selectors are two classes deep (.olv-rsvp .olv-rsvp-x), so a design's own resets
+ * (e.g. `.olv-eg * { margin: 0; padding: 0 }`) can't squash or un-centre the form: everything sits under
+ * .olv-rsvp-root. Not in a Tailwind layer, for the same reason.
+ */
+.olv-rsvp-root { display: block; width: 100%; container: olv-rsvp / inline-size; }
+.olv-rsvp-root .olv-rsvp {
+  --_ink: var(--rsvp-ink, var(--s-text, #2b2320));
+  --_muted: var(--rsvp-muted, var(--s-muted, #6f655f));
+  --_line: var(--rsvp-line, color-mix(in oklab, var(--s-accent, #8a5a6a) 35%, transparent));
+  --_input: var(--rsvp-input-bg, var(--s-surface, #fff));
+  --_radius: var(--rsvp-radius, 12px);
+  --_accent: var(--rsvp-accent, var(--s-accent, #8a5a6a));
+  --_on-accent: var(--rsvp-on-accent, var(--s-bg, #fff));
+  --_focus: var(--rsvp-focus, var(--_accent));
+  --_ring: var(--rsvp-focus-ring, color-mix(in oklab, var(--_focus) 22%, transparent));
+  --_error: var(--rsvp-error, #a33a2e);
+  --_selected: var(--rsvp-selected-bg, color-mix(in oklab, var(--_accent) 9%, var(--_input)));
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  color: var(--_ink);
+  font-family: var(--rsvp-font, var(--s-body, inherit));
+  font-size: 16px;
+  line-height: 1.45;
+}
+/* Two columns for phone + email once the form itself is wide enough (phones and narrow cards stay single column). */
+@container olv-rsvp (min-width: 440px) {
+  .olv-rsvp-root .olv-rsvp { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+}
+.olv-rsvp .olv-rsvp-wide, .olv-rsvp .olv-rsvp-alert { grid-column: 1 / -1; }
+
+.olv-rsvp .olv-rsvp-field { display: grid; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.olv-rsvp .olv-rsvp-label {
+  display: block; padding: 0; margin: 0;
+  font-family: var(--rsvp-label-font, inherit);
+  font-size: var(--rsvp-label-size, 15px); font-weight: var(--rsvp-label-weight, 500);
+  letter-spacing: var(--rsvp-label-tracking, 0);
+  color: var(--_ink);
+}
+.olv-rsvp fieldset > .olv-rsvp-label { margin-bottom: 0; float: none; width: 100%; }
+.olv-rsvp .olv-rsvp-optional { font-weight: 400; color: var(--_muted); }
+
+.olv-rsvp .olv-rsvp-input {
+  display: block; width: 100%; min-height: 50px; margin: 0;
+  padding: 12px 15px;
+  font: inherit; font-size: 16px; /* 16px: no zoom-on-focus on iPhone */
+  color: var(--_ink);
+  background: var(--_input);
+  border: var(--rsvp-border-width, 1px) solid var(--_line);
+  border-radius: var(--_radius);
+  box-shadow: var(--rsvp-input-shadow, none);
+  outline: none;
+  appearance: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.olv-rsvp .olv-rsvp-textarea { min-height: 112px; resize: vertical; line-height: 1.5; }
+.olv-rsvp .olv-rsvp-input:hover { border-color: color-mix(in oklab, var(--_line) 55%, var(--_ink)); }
+.olv-rsvp .olv-rsvp-input:focus-visible { border-color: var(--_focus); box-shadow: 0 0 0 3px var(--_ring); }
+.olv-rsvp .olv-rsvp-input[aria-invalid=true] { border-color: var(--_error); }
+
+/* Answer cards with a custom radio dot */
+.olv-rsvp .olv-rsvp-choices { display: grid; gap: 10px; }
+.olv-rsvp .olv-rsvp-choice {
+  position: relative; display: flex; align-items: center; gap: 14px;
+  min-height: 56px; margin: 0; padding: 14px 18px;
+  font-family: var(--rsvp-choice-font, inherit); font-size: 16.5px;
+  color: var(--_ink); background: var(--_input);
+  border: var(--rsvp-border-width, 1px) solid var(--_line);
+  border-radius: var(--_radius);
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.olv-rsvp .olv-rsvp-choice:hover { border-color: color-mix(in oklab, var(--_line) 45%, var(--_accent)); }
+.olv-rsvp .olv-rsvp-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.olv-rsvp .olv-rsvp-dot {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid color-mix(in oklab, var(--_line) 40%, var(--_ink));
+  background: var(--_input);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.olv-rsvp .olv-rsvp-choice:has(:checked) { border-color: var(--_accent); background: var(--_selected); box-shadow: inset 0 0 0 1px var(--_accent); }
+.olv-rsvp .olv-rsvp-choice:has(:checked) .olv-rsvp-dot { border-color: var(--_accent); box-shadow: inset 0 0 0 5px var(--_accent); }
+.olv-rsvp .olv-rsvp-choice:has(:focus-visible) { box-shadow: 0 0 0 3px var(--_ring); border-color: var(--_focus); }
+.olv-rsvp .olv-rsvp-field:has([aria-invalid=true]) .olv-rsvp-choice { border-color: var(--_error); }
+
+/* Guests stepper */
+.olv-rsvp .olv-rsvp-stepper {
+  display: grid; grid-template-columns: 50px 1fr 50px; align-items: center;
+  max-width: 280px; min-height: 50px; padding: 0; margin: 0;
+  background: var(--_input); border: var(--rsvp-border-width, 1px) solid var(--_line); border-radius: var(--_radius);
+  overflow: hidden;
+}
+.olv-rsvp .olv-rsvp-step {
+  height: 100%; min-height: 48px; margin: 0; padding: 0;
+  font: inherit; font-size: 22px; line-height: 1; color: var(--_accent);
+  background: none; border: 0; cursor: pointer;
+}
+.olv-rsvp .olv-rsvp-step:hover:not(:disabled) { background: var(--_selected); }
+.olv-rsvp .olv-rsvp-step:focus-visible { outline: 2px solid var(--_focus); outline-offset: -3px; }
+.olv-rsvp .olv-rsvp-step:disabled { color: var(--_muted); opacity: .45; cursor: default; }
+.olv-rsvp .olv-rsvp-count { text-align: center; font-weight: 500; }
+.olv-rsvp .olv-rsvp-hint { font-size: 13.5px; color: var(--_muted); }
+
+/* Messages */
+.olv-rsvp .olv-rsvp-error { margin: 0; font-size: 14px; color: var(--_error); }
+.olv-rsvp .olv-rsvp-alert {
+  margin: 0; padding: 12px 16px; font-size: 15px; color: var(--_error);
+  background: color-mix(in oklab, var(--_error) 8%, var(--_input));
+  border: 1px solid color-mix(in oklab, var(--_error) 35%, transparent); border-radius: var(--_radius);
+}
+
+/* Send */
+.olv-rsvp .olv-rsvp-submit {
+  display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; margin: 4px 0 0;
+  padding: 14px 26px;
+  font-family: var(--rsvp-btn-font, inherit); font-size: var(--rsvp-btn-size, 14px); font-weight: var(--rsvp-btn-weight, 600);
+  letter-spacing: var(--rsvp-btn-tracking, .12em); text-transform: var(--rsvp-btn-transform, uppercase);
+  color: var(--rsvp-btn-ink, var(--_on-accent)); background: var(--rsvp-btn-bg, var(--_accent));
+  border: var(--rsvp-btn-border, 0); border-radius: var(--rsvp-btn-radius, var(--_radius));
+  box-shadow: var(--rsvp-accent-shadow, 0 8px 20px color-mix(in oklab, var(--_accent) 28%, transparent));
+  cursor: pointer; transition: background-color .2s ease, transform .15s ease;
+}
+.olv-rsvp .olv-rsvp-submit:hover:not(:disabled) { background: var(--rsvp-accent-hover, color-mix(in oklab, var(--rsvp-btn-bg, var(--_accent)) 88%, var(--_ink))); }
+.olv-rsvp .olv-rsvp-submit:active:not(:disabled) { transform: scale(.985); }
+.olv-rsvp .olv-rsvp-submit:focus-visible { outline: 2px solid var(--_focus); outline-offset: 3px; }
+.olv-rsvp .olv-rsvp-submit:disabled { opacity: .65; cursor: progress; }
+.olv-rsvp .olv-rsvp-privacy { margin: 12px 0 0; text-align: center; font-size: 13.5px; color: var(--_muted); }
+
+.olv-rsvp .olv-rsvp-trap { position: absolute; left: -9999px; width: 0; height: 0; overflow: hidden; }
+
+/* Editor: shows the real form, but taps go to the section (it can't be typed in) */
+.olv-rsvp-root .olv-rsvp[data-mode=edit] { pointer-events: none; user-select: none; }
+
+/* Thank you */
+.olv-rsvp-root .olv-rsvp-thanks {
+  max-width: 500px; margin: 0 auto; padding: 28px 20px; text-align: center;
+  color: var(--rsvp-ink, var(--s-text, #2b2320));
+  animation: olv-rsvp-in .6s ease both;
+}
+.olv-rsvp-thanks .olv-rsvp-thanks-title {
+  margin: 0; font-family: var(--rsvp-title-font, var(--s-heading, inherit)); font-size: var(--rsvp-title-size, 30px);
+  line-height: 1.25; color: var(--rsvp-title-ink, inherit); text-wrap: balance;
+}
+.olv-rsvp-thanks .olv-rsvp-thanks-note { margin: 12px 0 0; font-size: 15px; color: var(--rsvp-muted, var(--s-muted, #6f655f)); }
+.olv-rsvp-thanks .olv-rsvp-again {
+  margin: 16px 0 0; padding: 8px 4px; font: inherit; font-size: 15px; background: none; border: 0; cursor: pointer;
+  color: var(--rsvp-accent, var(--s-accent, #8a5a6a)); text-decoration: underline; text-underline-offset: 3px;
+}
+@keyframes olv-rsvp-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .olv-rsvp-root .olv-rsvp-thanks { animation: none; }
+  .olv-rsvp .olv-rsvp-submit, .olv-rsvp .olv-rsvp-input, .olv-rsvp .olv-rsvp-choice { transition: none; }
+}
+
+/* Editor note above the look-only form */
+.olv-rsvp-edit .olv-rsvp-preview-note {
+  max-width: 500px; margin: 0 auto 18px; padding: 10px 14px; text-align: center;
+  font-family: var(--rsvp-font, var(--s-body, inherit)); font-size: 13.5px; line-height: 1.45;
+  color: var(--rsvp-muted, var(--s-muted, #6f655f));
+  border: 1px dashed var(--rsvp-line, color-mix(in oklab, var(--s-accent, #8a5a6a) 35%, transparent)); border-radius: 999px;
+}
